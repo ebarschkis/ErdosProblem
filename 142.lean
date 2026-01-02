@@ -49,10 +49,6 @@ lemma summable_harmonic_of_dyadic_count_bound
 /--
 **Erdős–Turán reduction (dyadic, conditional on an `r_k`-type bound).**
 
-This theorem is set up to be friendly to Aristotle: the deep additive combinatorics
-input is packaged as a hypothesis `h_rBound`, and the analytic “condensation” step
-is factored out as `summable_harmonic_of_dyadic_count_bound`.
-
 PROVIDED SOLUTION
 Let `rBound : ℕ → ℕ` play the role of `r_k(N)` (largest size of a subset of `[1..N]`
 with no nontrivial `k`-term AP). We assume the standard contrapositive formulation:
@@ -79,7 +75,7 @@ Proof idea:
    `Summable (harmonicTerm A)`, contradicting `HarmonicDiverges A`.
 6) Therefore `HasKAP A k`.
 
-Lean hints for Aristotle:
+Possible approaches (probably wrong, but its worth a shot):
 - Use `by_contra hno;` then aim to build `Summable (harmonicTerm A)`.
 - Define `B N : Finset ℕ := (Finset.Icc 1 N).filter (fun n => n ∈ A)`.
 - Show `¬ HasKAP (fun n => n ∈ B N) k` from `hno` using `HasKAP.mono`.
