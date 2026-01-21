@@ -1,0 +1,262 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\title{A Sequence with Doubling Ratio and Full-Density Subset Sums}
+\author{Enrique Barschkis}
+\date{January 21, 2026}
+
+\newtheorem{lemma}{Lemma}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We construct a nondecreasing sequence of integers
+$A=\{a_1\le a_2\le\cdots\}$ with
+\[
+\lim_{n\to\infty}\frac{a_{n+1}}{a_n}=2
+\]
+such that for every cofinite subsequence $A'\subseteq A$, the finite
+subset-sum set
+\[
+P(A')=\left\{\sum_{x\in B}x: B\subseteq A' \text{ finite}\right\}
+\]
+has asymptotic density $1$ in $\mathbb{N}$.
+\end{abstract}
+
+\section{Problem}
+Does there exist a nondecreasing sequence $A$ of integers with
+\[
+\lim_{n\to\infty}\frac{a_{n+1}}{a_n}=2
+\]
+such that $P(A')$ has density $1$ for every cofinite subsequence
+$A'\subseteq A$?
+
+\section{Construction by Blocks}
+
+\subsection{Block lengths}
+Define
+\[
+k_n := 4+\left\lceil \log_2\log_2(n+16)\right\rceil
+\qquad (n\ge0).
+\]
+Then $k_n\to\infty$ slowly and
+$2^{k_n}\asymp \log n$ as $n\to\infty$.
+
+\subsection{Block scales}
+Let $M_0:=10$ and define recursively
+\[
+M_{n+1}:=\left\lfloor \left(2^{k_n}-\tfrac32\right)M_n \right\rfloor.
+\]
+Since $M_n\ge10$, we have
+\begin{equation}
+(2^{k_n}-2)M_n<M_{n+1}<(2^{k_n}-1)M_n.
+\tag{1}
+\end{equation}
+
+\subsection{Block entries}
+Block $n$ consists of
+\[
+M_n,\ 2M_n,\ 4M_n,\ \dots,\ 2^{k_n-2}M_n,\ (2^{k_n-1}-1)M_n+1.
+\]
+Concatenating all blocks yields a nondecreasing sequence $A$.
+
+\section{Limit of Consecutive Ratios}
+
+Inside a block, consecutive ratios equal $2$ except at the final step:
+\[
+\frac{(2^{k_n-1}-1)M_n+1}{2^{k_n-2}M_n}
+=2-\frac{1}{2^{k_n-2}}
++\frac{1}{2^{k_n-2}M_n}
+=2+o(1).
+\]
+Across block boundaries,
+\[
+\frac{M_{n+1}}{(2^{k_n-1}-1)M_n+1}
+=2+O(2^{-k_n})+O(M_n^{-1}).
+\]
+As $k_n, M_n \to \infty$, all ratios tend to $2$, hence
+\[
+\lim_{n\to\infty}\frac{a_{n+1}}{a_n}=2.
+\]
+
+\section{Density for Cofinite Subsequences}
+
+Let $A'$ be cofinite in $A$. Then there exists $n_0$ such that all blocks
+with $n\ge n_0$ are contained in $A'$. Set $T:=A_{\ge n_0}$.
+
+\subsection{Digit sets}
+Fix $n\ge n_0$ and write $k=k_n$. Define
+\[
+c_n := (2^{k-1}-1)M_n.
+\]
+Set
+\[
+B_n=\left\{jM_n \mid 0\le j\le 2^{k-1}-1\right\}
+\cup
+\left\{jM_n+1 \mid 2^{k-1}\le j\le 2^k-2\right\}.
+\]
+Then $|B_n|=2^k-1$, $c_n\in B_n$, $c_n+1\notin B_n$, and
+$B_n\subset[0,M_{n+1})$.
+
+\begin{lemma}[Greedy covering]
+For every integer $x$ with $0\le x\le M_{n+1}$, there exists
+$b\in B_n$ such that
+\[
+0\le x-b\le M_n.
+\]
+\end{lemma}
+
+\subsection{Greedy expansion}
+
+Fix $N\ge n_0$. For each $m\le M_{N+1}$ define recursively
+\[
+r_{N+1}:=m,
+\qquad
+b_n:=\max\{b\in B_n:b\le r_{n+1}\},
+\qquad
+r_n:=r_{n+1}-b_n,
+\]
+for $n=N,\dots,n_0$. Then
+\begin{equation}
+m=\sum_{n=n_0}^N b_n + d,
+\qquad 0\le d\le M_{n_0}.
+\tag{2}
+\end{equation}
+
+\subsection{Correction lemma}
+
+\begin{lemma}
+If at least $M_{n_0}$ indices satisfy $b_n=c_n$, then $m\in P(T)$.
+\end{lemma}
+\begin{proof}
+Since each block contains both unshifted multiples $jM_n$ and shifted
+ones $jM_n+1$, the choice $b_n=c_n$ gives access to a $+1$ adjustment.
+With at least $M_{n_0}$ such indices, the remainder $d\le M_{n_0}$ can
+be absorbed by switching the block sum $c_n$ to the last block element
+$c_n+1$ in at most $d$ positions.
+\end{proof}
+
+\subsection{Counting exceptions}
+
+Let $E_N$ denote the number of integers $m\le M_{N+1}$
+not in $P(T)$. We give a detailed bound showing
+\[
+\frac{E_N}{M_{N+1}}\longrightarrow 0
+\quad (N\to\infty).
+\]
+
+Fix $N\ge n_0$ and set
+\[
+s_n:=|B_n|=2^{k_n}-1,
+\qquad
+a_n:=s_n-1=2^{k_n}-2.
+\]
+For each $m\le M_{N+1}$ the greedy expansion produces a unique vector
+\[
+(b_{n_0},\dots,b_N)\in B_{n_0}\times\cdots\times B_N
+\]
+and a remainder $d\in[0,M_{n_0}]$, with
+\[
+m=\sum_{n=n_0}^N b_n+d.
+\]
+Thus the map $m\mapsto (b_{n_0},\dots,b_N,d)$ is injective. By the
+correction lemma, $m\notin P(T)$ implies fewer than $M_{n_0}$ indices
+with $b_n=c_n$. Therefore
+\begin{equation}
+E_N
+\le
+(M_{n_0}+1)\cdot
+\#\{(b_{n_0},\dots,b_N):\#\{n:b_n=c_n\}<M_{n_0}\}.
+\tag{3}
+\end{equation}
+
+For a fixed subset $I\subset\{n_0,\dots,N\}$ of size $j$, the number of
+vectors with $b_n=c_n$ exactly for $n\in I$ is
+\[
+\prod_{n\notin I} a_n,
+\]
+since there are $a_n$ non-special choices at $n\notin I$. Summing over
+all $I$ with $|I|=j$ and then over $j\le M_{n_0}-1$ gives
+\begin{equation}
+E_N
+\le
+(M_{n_0}+1)\left(\prod_{n=n_0}^N a_n\right)
+\sum_{j=0}^{M_{n_0}-1} e_j\!\left(\frac{1}{a_{n_0}},\dots,\frac{1}{a_N}\right),
+\tag{4}
+\end{equation}
+where $e_j$ is the $j$th elementary symmetric sum. Using the bound
+\[
+e_j(x_1,\dots,x_r)\le\frac{(x_1+\cdots+x_r)^j}{j!},
+\]
+we obtain
+\[
+E_N
+\le
+(M_{n_0}+1)\left(\prod_{n=n_0}^N a_n\right)
+\sum_{j=0}^{M_{n_0}-1}\frac{S_N^j}{j!},
+\qquad
+S_N:=\sum_{n=n_0}^N\frac{1}{a_n}.
+\]
+On the other hand, the recurrence $M_{n+1}=\lfloor(a_n+\tfrac12)M_n\rfloor$ implies
+$M_{n+1} \ge (a_n+\tfrac12)M_n - 1$. Writing
+$M_{n+1}\ge (a_n+\tfrac12)M_n\left(1-\frac{1}{(a_n+\tfrac12)M_n}\right)$ and using
+$k_n\ge 6$ (hence $a_n\ge 62$ and $M_{n+1}\ge a_n M_n$), we get
+$M_n\ge 10\cdot 62^n$ and
+$\sum_n\frac{1}{(a_n+\tfrac12)M_n}<\infty$. Therefore the product
+$\prod_n\left(1-\frac{1}{(a_n+\tfrac12)M_n}\right)$ is bounded below by a
+constant $c>0$, and hence
+\[
+M_{N+1}
+\ge
+c \cdot M_{n_0}\prod_{n=n_0}^N\left(a_n+\tfrac12\right).
+\]
+Hence
+\begin{equation}
+\label{eq:final_bound} % <--- Added label here
+\frac{E_N}{M_{N+1}}
+\le
+\frac{C_{n_0}}{c}
+\left(\prod_{n=n_0}^N\frac{a_n}{a_n+\tfrac12}\right)
+\left(\sum_{j=0}^{M_{n_0}-1}\frac{S_N^j}{j!}\right).
+\tag{5}
+\end{equation}
+where $C_{n_0} := (M_{n_0}+1)/M_{n_0}$. Since
+\[
+\log\left(\frac{a_n}{a_n+\tfrac12}\right)
+=-\log\left(1+\frac{1}{2a_n}\right)
+\le -\frac{1}{4a_n}
+\]
+for all $n$ (using $a_n\ge 2^{k_n}-2\ge 62$), we have
+\[
+\prod_{n=n_0}^N\frac{a_n}{a_n+\tfrac12}
+\le
+\exp\left(-\frac14 S_N\right).
+\]
+Because $2^{k_n}\asymp\log n$, we have $a_n\asymp\log n$ and therefore
+\[
+S_N=\sum_{n=n_0}^N\frac{1}{a_n}\asymp\sum_{n=n_0}^N\frac{1}{\log n}\to\infty.
+\]
+The exponential decay in \eqref{eq:final_bound} dominates the fixed polynomial % <--- Changed \label to \eqref
+factor $\sum_{j=0}^{M_{n_0}-1}S_N^j/j!$, so
+\[
+\frac{E_N}{M_{N+1}}\to 0,
+\]
+and $P(T)$ has asymptotic density $1$.
+
+\section{Conclusion}
+
+The constructed sequence $A$ satisfies
+\[
+\lim_{n\to\infty}\frac{a_{n+1}}{a_n}=2,
+\]
+and for every cofinite subsequence $A'\subseteq A$, the set $P(A')$
+has density $1$. Hence the answer to the original problem is
+\emph{yes}.
+
+\section*{Acknowledgments}
+The author would like to thank Terence Tao and Wouter van Doorn, as the proof presented here builds upon their ideas.
+\end{document}
