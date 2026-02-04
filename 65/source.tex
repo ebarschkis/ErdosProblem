@@ -1,0 +1,262 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath,amsthm,amssymb,mathrsfs}
+\usepackage[hidelinks]{hyperref}
+\usepackage[margin=1.1in]{geometry}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Cyc}{\mathcal{C}}
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\V}{\mathrm{V}}
+
+\title{A note on the harmonic sum of cycle lengths in graphs with $kn$ edges}
+\author{---}
+\date{4th of February 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $G$ be a graph on $n$ vertices with $m:=|E(G)|=kn$ edges (so $k=m/n$), and let
+$a_1<a_2<\cdots$ be the distinct lengths of cycles appearing in $G$.
+Define the harmonic sum of cycle lengths by $L(G):=\sum_i 1/a_i$.
+Assuming an exact extremal statement (quoted in a survey of Montgomery)
+that for large $d$ the complete bipartite graph $K_{d,n-d}$ minimises
+$L(G)$ among graphs with at least $d(n-d)$ edges, we give a short,
+fully explicit proof that $L(G)\gg \log k$ (indeed $L(G)\ge \tfrac12\log k-O(1)$).
+\end{abstract}
+
+\section{Definitions and the Erd\H{o}s--Hajnal harmonic-sum parameter}
+
+Throughout, graphs are finite and simple.
+
+\begin{definition}[Cycle-length set and harmonic sum]
+Let $G$ be a graph.
+Define the \emph{cycle-length set}
+\[
+\Cyc(G):=\{\ell\in \mathbb{N}:\text{$G$ contains a cycle of length $\ell$}\}.
+\]
+Define the \emph{harmonic sum of cycle lengths}
+\[
+L(G):=\sum_{\ell\in \Cyc(G)}\frac{1}{\ell}.
+\]
+Equivalently, if $a_1<a_2<\cdots$ lists the distinct elements of $\Cyc(G)$,
+then $L(G)=\sum_i 1/a_i$.
+\end{definition}
+
+This parameter was proposed by Erd\H{o}s and Hajnal as a measure of
+how ``dense'' the set of cycle lengths is. A classical theorem of
+Gy\'arf\'as--Koml\'os--Szemer\'edi (1984) shows that $L(G)\ge c\log \delta(G)$
+for graphs of sufficiently large minimum degree $\delta(G)$, and yields
+corresponding statements for density/average-degree assumptions.
+See \cite{GKS84}.
+
+In this note we do \emph{not} reprove the Gy\'arf\'as--Koml\'os--Szemer\'edi
+argument. Instead, we show that once one assumes the (claimed) \emph{exact}
+extremal result identifying the minimiser of $L(G)$ at a given edge threshold,
+the lower bound $L(G)\gg \log k$ becomes an immediate computation.
+
+\section{The extremal hypothesis}
+
+The following statement is quoted (as ``forthcoming work'') in Montgomery's
+survey on cycles and expansion \cite{MontgomerySurvey}. We take it as a
+black-box assumption.
+
+\begin{assumption}[Exact extremal minimiser at the $d(n-d)$ threshold]\label{ass:extremal}
+There exists an integer $d_0$ and a function $n_0:\mathbb{N}\to\mathbb{N}$ such
+that for every integer $d\ge d_0$ and every $n\ge n_0(d)$, every $n$-vertex graph
+$H$ with
+\[
+|E(H)|\ge d(n-d)
+\]
+satisfies
+\[
+L(H)\ \ge\ L\bigl(K_{d,n-d}\bigr),
+\]
+with equality attained uniquely by $H\cong K_{d,n-d}$.
+\end{assumption}
+
+\begin{remark}
+This is precisely the ``exact extremal result corresponding to Theorem 2.3''
+described in \cite{MontgomerySurvey}, i.e.\ the minimiser is the complete
+$bipartite$ graph with parts of sizes $d$ and $n-d$.
+\end{remark}
+
+\section{Cycle lengths in complete bipartite graphs}
+
+We now determine $\Cyc(K_{d,n-d})$ and hence compute $L(K_{d,n-d})$.
+
+\begin{lemma}[Cycle-length spectrum of $K_{d,n-d}$]\label{lem:cycle-spectrum}
+Let $2\le d\le n-d$. Then
+\[
+\Cyc\bigl(K_{d,n-d}\bigr)=\{4,6,8,\dots,2d\}.
+\]
+\end{lemma}
+
+\begin{proof}
+First, $K_{d,n-d}$ is bipartite, so every cycle alternates between the
+two parts and therefore has even length. Thus $\Cyc(K_{d,n-d})\subset 2\mathbb{N}$.
+
+If a cycle has length $2t$, it uses exactly $t$ vertices in each part.
+Since the smaller part has size $d$, necessarily $t\le d$, so $2t\le 2d$.
+Hence no cycle length exceeds $2d$.
+
+Conversely, fix any integer $t$ with $2\le t\le d$. Choose distinct vertices
+$x_1,\dots,x_t$ in the $d$-vertex part and distinct vertices $y_1,\dots,y_t$
+in the $(n-d)$-vertex part. Since the graph is complete bipartite, all edges
+$x_i y_j$ exist, and in particular
+\[
+x_1y_1x_2y_2\cdots x_ty_tx_1
+\]
+is a cycle of length $2t$. This shows every even length $2t$ with $2\le t\le d$
+occurs. Therefore $\Cyc(K_{d,n-d})=\{4,6,\dots,2d\}$.
+\end{proof}
+
+\begin{corollary}[Harmonic sum of cycle lengths in $K_{d,n-d}$]\label{cor:L-Kdn}
+For $2\le d\le n-d$,
+\[
+L\bigl(K_{d,n-d}\bigr)
+=\sum_{t=2}^{d}\frac{1}{2t}
+=\frac12\left(H_d-1\right),
+\]
+where $H_d:=\sum_{t=1}^{d}\frac{1}{t}$ is the $d$th harmonic number.
+\end{corollary}
+
+\begin{proof}
+By Lemma \ref{lem:cycle-spectrum},
+\[
+L\bigl(K_{d,n-d}\bigr)=\sum_{\ell\in\{4,6,\dots,2d\}}\frac{1}{\ell}
+=\sum_{t=2}^{d}\frac{1}{2t}
+=\frac12\sum_{t=2}^{d}\frac{1}{t}
+=\frac12(H_d-1).
+\]
+\end{proof}
+
+\section{A standard lower bound for harmonic numbers}
+
+\begin{lemma}[Integral lower bound]\label{lem:harmonic-lb}
+For every integer $d\ge 1$,
+\[
+H_d\ \ge\ \log(d+1).
+\]
+\end{lemma}
+
+\begin{proof}
+Since $x\mapsto 1/x$ is decreasing on $(0,\infty)$, for each integer $t\ge 1$
+and all $x\in[t,t+1]$ we have $1/x\le 1/t$. Hence
+\[
+\int_t^{t+1}\frac{dx}{x}\ \le\ \int_t^{t+1}\frac{dx}{t}=\frac{1}{t}.
+\]
+Summing from $t=1$ to $d$ yields
+\[
+\int_1^{d+1}\frac{dx}{x}
+=\sum_{t=1}^{d}\int_t^{t+1}\frac{dx}{x}
+\le \sum_{t=1}^{d}\frac{1}{t}
+=H_d.
+\]
+The integral equals $\log(d+1)$, giving $H_d\ge \log(d+1)$.
+\end{proof}
+
+\section{Main implication: $L(G)\gg \log k$ from the extremal minimiser}
+
+We now prove the desired lower bound for graphs with $kn$ edges.
+
+\begin{theorem}\label{thm:main}
+Assume Assumption \ref{ass:extremal}. Let $G$ be a graph on $n$ vertices with
+$m:=|E(G)|$ edges, and set $k:=m/n$.
+Let $a_1<a_2<\cdots$ be the distinct cycle lengths in $G$.
+Then there exists $k_0$ (depending only on $d_0$ from Assumption \ref{ass:extremal})
+such that whenever $k\ge k_0$ and $n\ge n_0(\lfloor k\rfloor)$,
+\[
+\sum_i \frac{1}{a_i}=L(G)\ \ge\ \frac12\log k - O(1),
+\]
+and in particular $L(G)\gg \log k$ as $k\to\infty$.
+\end{theorem}
+
+\begin{proof}
+If $k$ is bounded (say $1\le k\le 2$), then $\log k=O(1)$ and the statement
+$L(G)\gg \log k$ is trivial after adjusting constants. Hence we assume $k\ge 2$.
+
+Write $m:=|E(G)|$ and $k=m/n$. Since $m\le \binom{n}{2}$, we have
+\[
+k\le \frac{n-1}{2}.
+\]
+In particular $d:=\lfloor k\rfloor\le (n-1)/2< n/2$, so $d\le n-d$ and the
+standing hypothesis of Lemma~\ref{lem:cycle-spectrum} is satisfied.
+
+Let $d:=\lfloor k\rfloor$. Then $d\le k$ and $d\ge 1$.
+We claim that
+\[
+|E(G)|\ge d(n-d).
+\]
+Indeed,
+\[
+|E(G)|=m=kn\ \ge\ dn,
+\]
+and since $n-d\le n$ we have $d(n-d)\le dn$. Thus $|E(G)|\ge d(n-d)$.
+
+If furthermore $d\ge d_0$ and $n\ge n_0(d)$ (in particular, $n\ge n_0(\lfloor k\rfloor)$),
+Assumption \ref{ass:extremal} implies
+\[
+L(G)\ \ge\ L\bigl(K_{d,n-d}\bigr).
+\]
+By Corollary \ref{cor:L-Kdn} and Lemma \ref{lem:harmonic-lb},
+\[
+L\bigl(K_{d,n-d}\bigr)=\frac12(H_d-1)\ \ge\ \frac12(\log(d+1)-1).
+\]
+Since $k\ge 2$ gives $\lfloor k\rfloor\ge k/2$, we have $d+1\ge k/2$ and so
+\[
+\log(d+1)\ \ge\ \log\Bigl(\frac{k}{2}\Bigr)=\log k-\log 2.
+\]
+Therefore, for $k\ge \max\{2,d_0\}$,
+\[
+L(G)\ \ge\ \frac12(\log(d+1)-1)
+\ \ge\ \frac12(\log k-\log 2-1)
+= \frac12\log k - \frac12(\log 2+1).
+\]
+This is of the form $\frac12\log k - O(1)$, and it implies $L(G)\gg \log k$.
+\end{proof}
+
+\begin{remark}[Sharpness up to the constant $1/2$]
+For the extremal graph itself,
+\[
+L\bigl(K_{d,n-d}\bigr)=\sum_{t=2}^{d}\frac{1}{2t}
+=\frac12(H_d-1)\sim \frac12\log d.
+\]
+Thus, even with the best possible argument, one cannot replace the coefficient
+$1/2$ in front of $\log k$ by any larger absolute constant in general (up to
+lower-order terms).
+\end{remark}
+
+\section*{Acknowledgement of context}
+The original lower bound $L(G)\gg \log d$ (for average degree/minimum degree
+parameters) was proved by Gy\'arf\'as--Koml\'os--Szemer\'edi in \cite{GKS84}.
+Montgomery's survey \cite{MontgomerySurvey} discusses later improvements and
+states the exact extremal characterisation (Assumption \ref{ass:extremal})
+as forthcoming work; assuming that characterisation, the $\Omega(\log k)$
+bound for the edge-density parameter follows directly from evaluating
+$L(K_{d,n-d})$.
+
+\begin{thebibliography}{9}
+
+\bibitem{MontgomerySurvey}
+R.~Montgomery,
+\newblock \emph{Cycles and expansion in graphs},
+\newblock EMS Magazine 138 (2025), DOI: 10.4171/MAG/287.
+
+\bibitem{GKS84}
+A.~Gy\'arf\'as, J.~Koml\'os, and E.~Szemer\'edi,
+\newblock \emph{On the distribution of cycle lengths in graphs},
+\newblock J.\ Graph Theory 8 (1984), 441--462.
+
+\end{thebibliography}
+
+\end{document}
