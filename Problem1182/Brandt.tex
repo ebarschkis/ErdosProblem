@@ -1,0 +1,539 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{mathtools}
+\allowdisplaybreaks
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
+\raggedbottom
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+\begin{document}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\noindent\makebox[\textwidth][r]{\large SERIE A --- MATHEMATIK}
+
+\vspace*{0.20\textheight}
+
+\begin{center}
+{\LARGE Expanding graphs and Ramsey numbers\par}
+\vspace{1.2em}
+{\large Stephan Brandt$^{\dagger *}$\par}
+\vspace{2em}
+{\Large Preprint No.\ A 96--24\par}
+\vspace{0.3em}
+{\Large December 1996\par}
+\vfill
+{\large\bfseries Abstract\par}
+\vspace{0.8em}
+\begin{minipage}{0.80\textwidth}
+The generalized Ramsey number $r(G;H)$ is investigated for $H$ being a large order
+graph of bounded maximum degree. Giving a negative answer to a number of con-
+jectures in generalized Ramsey theory it will be shown that for every nonbipartite
+graph $G$ there is a function $h(G,d)$ tending to infinity with $d$, such that the Ramsey
+number $r(G;H)>h(G,d)|H|$ for almost every $d$-regular graph $H$.
+\end{minipage}
+\end{center}
+
+\vfill
+
+\noindent$^{\dagger}$ FB Mathematik und Informatik, WE 2,\\
+Freie Universit\"at Berlin,\\
+Arnimallee 3, 14195 Berlin, Germany\\
+e-mail: brandt@math.fu-berlin.de\\
+$^{*}$Partly supported by Deutsche Forschungsgemeinschaft, Grant We 1265
+\end{titlepage}
+
+\setcounter{page}{2}
+
+\begin{center}
+{\Large\bfseries Dedication}
+\end{center}
+
+This paper is dedicated to the memory of Paul Erd\H{o}s, who died in Warsaw on
+September 20, 1996 while attending a conference. I communicated with him about
+these results on the day before his death, where he suggested to estimate the function
+$h$, which is performed in Theorem 2 below.
+
+\section{Introduction}
+
+For two graphs $G$ and $H$ the Ramsey number $r(G;H)$ is the smallest integer $r$ such
+that every graph $F$ of order $p\ge r$ contains $G$ as a subgraph or its complement $\overline{F}$
+contains $H$ as a subgraph. Chv\'atal, R\"odl, Szemer\'edi and Trotter [18] proved that
+the Ramsey number $r(H;H)$ is linear in the order of $H$ for graphs of bounded degree.
+More precisely, for every $\Delta$ there is a constant $c(\Delta)$, such that $r(H;H)\le c(\Delta)|H|$ for
+every graph $H$ with maximum degree at most $\Delta$. Certainly, $c(\Delta)$ is an exponentially
+growing function of $\Delta$ (though the growth might be slower if $|H|$ is required to be
+much larger than $\Delta$).
+
+Here we investigate the growth of Ramsey numbers $r(G;H)$, where $G$ is a fixed
+graph and $H$ is a sequence of graphs of bounded maximum degree. It is easy
+to derive from the result of Chv\'atal et. al., that $r(G;H)\le c(\Delta(G)+\Delta)|H|$ for
+every graph $H$ with maximum degree at most $\Delta$. The objective of this paper is
+to determine lower bounds for $r(G;H)$. Using the expansion properties of random
+regular graphs, we will show that for every nonbipartite graph $G$ the Ramsey number
+$r(G;H)\ge h(G,d)|H|$ for almost every (with probability tending to 1) $d$-regular
+graph $H$, where $h(G,d)$ tends to infinity with $d$. This contradicts a conjecture of
+Burr [11, Conj. 4.1], saying that $r(G;H)<\chi(G)|H|$ for almost every (all but finitely
+many) connected graph $H$ of maximum degree at most $\Delta$ ($\chi$ being the chromatic
+number), and several other conjectures as well.
+
+This research was motivated by the wealth of experimental data on Ramsey
+numbers $r(K_3;H)$ [6, 7, 8] for (relatively) small order graphs $H$, where the author
+first saw well-expanding graphs $H$ having largest Ramsey numbers among undense
+graphs.
+
+\section{History and main results}
+
+Let $H$ be a connected graph of order $n$. Generalizing an observation of Chv\'atal and
+Harary [17], Burr [10] established the lower bound of
+\begin{equation}
+  r(G;H)\ge (\chi(G)-1)(n-1)+s(G)
+\end{equation}
+for any graph $G$, where $\chi(G)$ denotes the chromatic number and $s(G)$ the chromatic
+surplus of $G$, i.e. the minimum cardinality of a color class taken over all proper $\chi(G)$
+colorings of $G$. Burr [10] defined $H$ to be $G$-good, if (1) holds with equality.
+
+Which graphs are $G$-good? Obviously, every graph is $K_2$-good. Furthermore,
+Burr [10] proved that if $H$ is $K_m$-good then it is also $K_{m'}$-good whenever $2\le m'\le m$.
+
+Two results, dating back to the times before the goodness concept was defined,
+are saying that the most undense connected graphs are $K_m$-good, namely trees
+(Chv\'atal [16]) and cycles of length at least $m^2-2$ (Bondy and Erd\H{o}s [5]).
+
+Three conjectures have been posed describing the expected limits for $G$-goodness
+(see [11, Section 4]).
+
+\medskip
+\noindent\textbf{Conjecture 1 (Burr [10])} If $G$ is any fixed graph and $c$ is any fixed number, then
+any connected graph of sufficiently large order with maximum degree $\Delta\le c$ is $G$-
+good.
+
+\medskip
+\noindent\textbf{Conjecture 2 (Burr and Erd\H{o}s [12])} If $G=K_m$ and $c$ is any fixed number, then
+any connected graph $H$ of sufficiently large order where every subgraph $H'$ satisfies
+$|E(H')|/|H'|<c$ is $G$-good.
+
+\medskip
+\noindent\textbf{Conjecture 3 (Burr [11])} If $G=K_3$ and $c$ is any fixed number, then any con-
+nected graph of sufficiently large order $n$ of size at most $cn$ is $G$-good.
+
+Two further conjectures by Burr and Faudree [15, Conj. 1.1 and 2.1] generalize
+Conjecture 2 (for which a reward of 25\$ was offered by the authors) to larger classes
+of graphs than just $K_m$.
+
+Conjecture 1 was shown to hold if $G$ is bipartite by Burr, Erd\H{o}s, Faudree,
+Rousseau and Schelp [14]. Here we will show that it is false in every other case.
+Even more, if $G$ is not bipartite then Conjecture 1 is false for almost every $d$-regular
+graph $H$, if $d$ is sufficiently large with respect to $G$. In fact, the Ramsey number
+$r(G;H)$ exceeds $\gamma n$ for any constant $\gamma$, if $d$ is sufficiently large with respect to $G$
+and $\gamma$ for almost every $d$-regular graph. So, in particular, all the other conjectures
+are false as well. The term \emph{almost every} means ``with probability $1-o(1)$'' unless
+otherwise stated.
+
+\begin{theorem}
+For every nonbipartite graph $G$ there is a function $h(G,d)$ tending to
+infinity as $d\to\infty$, such that $r(G;H)>h(G,d)n$ for almost every $d$-regular graph
+$H$ of order $n$.
+\end{theorem}
+
+In order to prove Theorem 1 it suffices to prove the statement for odd cy-
+cles $C_{2k+1}$ ($k\ge 1$), since every nonbipartite graph contains an odd cycle, and
+$r(G;H)\ge r(G';H)$ for every subgraph $G'$ of $G$. We can give explicit lower bounds
+for $h(C_{2k+1},d)$. In fact, it turns out that we can choose $h$ to be a reasonably fast
+growing function of $d$.
+
+\begin{theorem}
+For odd cycles, Theorem 1 holds with
+\[
+  h(C_3,d)=\Omega(\sqrt{d}/\log d)
+\]
+and
+\[
+  h(C_{2k+1},d)=\Omega((d/\log d)^{1/(4k+2)})
+\]
+for every $k\ge 2$.
+\end{theorem}
+
+Moreover, Burr, Erd\H{o}s, Faudree, Rousseau and Schelp [13] asked for the functions
+$f(n,m)$ and $g(n,m)$, where $f(n,m)$ is the largest integer such that every connected
+graph of order $n$ and size at most $f(n,m)$ is $K_m$-good, and $g(n,m)$ is the largest
+integer such that some connected graph of order $n$ and size $f(n,m)$ is $K_m$-good.
+
+While $g(n,m)$ is for every fixed $m$ a superlinear function in $n$ [13], the situation is
+different for $f(n,m)$. For $m\ge 4$, Burr et.al. [13] proved that $f(n,m)=n+o(n)$. For
+$m=3$ they proved that $f(n,3)/n>17/15$. We will show that $f(n,3)/n<84$, and,
+in fact, with a different approach and a more refined analysis which is not presented
+here we can show that $f(n,3)/n<11.75$. However, this is likely to be still far from
+the optimum. The author would expect $2<f(n,3)/n<6$, say, if $n$ is sufficiently
+large. Computer experiments [7] seem to indicate that at least $f(n,3)/n>3/2$
+holds for larger $n$.
+
+The method that we use is as follows: We employ the expansion properties
+of random regular graphs to justify that these graphs cannot be contained in the
+complement of lexicographic products $F[K_s]$, where $F$ is a certain graph with larger
+odd girth than $G$ and small independence number.
+
+\section{Concepts and notation}
+
+The graph theoretical notation is standard as far as possible; for notation and con-
+cepts not defined here the reader is referred to introductory literature, e.g. [24].
+
+The \emph{lexicographic product} (composition) $G[H]$ of two graphs $G$ and $H$ has vertex
+set $V(G)\times V(H)$ and two vertices $(v_i,w_i)$ and $(v_j,w_j)$ are joined by an edge if and
+only if (1) $v_iv_j\in E(G)$ or (2) $v_i=v_j$ and $w_iw_j\in E(H)$. In our case we will consider
+only the case where $H$ is a complete graph or its complement.
+
+The \emph{girth} of a graph is the length of a shortest cycle and the \emph{odd girth} is the
+length of a shortest odd cycle. Note that the odd girth of a graph $G$ is inherited by
+the lexicographic product $G[\bar{K}_r]$.
+
+The \emph{clique number} $\omega(G)$ of a graph $G$ is the maximum number of vertices which
+are pairwise joined by an edge and the \emph{independence number} $\alpha(G)$ is the maximum
+number of vertices which are pairwise not joined by an edge. The \emph{independence ratio}
+is $\alpha(G)/|G|$, where $|G|$ denotes the order of $G$.
+
+A \emph{subgraph} of a graph $G$ is a graph $G'$ with $V(G')\subseteq V(G)$ and $E(G')\subseteq E(G)\cap
+\binom{V(G')}{2}$, where the edges of the undirected, simple graph are considered as two-
+element subsets of the vertex set, and $\binom{V}{2}$ denotes the set of all two-element subsets
+of $V$. An \emph{induced subgraph} is a subgraph $G'$ satisfying $E(G')=E(G)\cap\binom{V(G')}{2}$.
+
+\section{Expanding graphs}
+
+Typical graphs tend to have the property that the edges are homogeneously dis-
+tributed over the graph (even though most infinite sequences of graphs that we know
+do not have this property). This means, in particular, that for any two reasonably
+large disjoint subsets $U,W$ of vertices the number of edges joining them does not
+deviate a lot from the expected number of edges (which is $|U||W||E(H)|/\binom{|V(H)|}{2}$).
+A necessary condition for $H$ being a subgraph of a graph $F$ is the following:
+
+\begin{quote}
+$F$ has an induced subgraph $F'$ of order $|V(H)|$, such that for every pair
+$u,w$ the minimum number of edges joining two sets of cardinalities $u$
+and $w$ is at least as large in $F'$ as in $H$.
+\end{quote}
+
+This is the key obstruction that will be used to prove that the Ramsey number
+$r(C_{2k+1};H)$ is large for well-expanding graphs $H$.
+
+Which families of graphs with linearly many edges will be suitable for having
+a large Ramsey number (vs.\ $C_{2k+1}$), due to this reason? A random regular graph
+will almost surely do. Moreover, as shown by Robinson and Wormald [23], for
+$d\ge 3$ a random $d$-regular graph is almost surely hamiltonian, so, in particular, it is
+connected.
+
+A suitable model for random regular graphs was introduced by Bollob\'as [2]
+(see also [3]). To construct a $d$-regular graph with $n$ vertices ($d$ times $n$ even)
+take a set $\{1,2,\ldots,n\}$ of vertices with $d$ half-edges sticking out of each vertex.
+Choose a random pairing of the half-edges to edges. Such a pairing will be called a
+\emph{configuration}. The result will be a $d$-regular multigraph, possibly containing loops or
+multiple edges. However, for fixed $d$, a positive fraction of the graphs will be simple
+graphs [2]. So any statement, which holds for almost every $d$-regular multigraph,
+will hold for almost every $d$-regular simple graph as well. Note that every labelled
+$d$-regular simple graph appears with the same probability in this model. Moreover,
+the number of configurations with $2x$ half edges is
+\[
+  N(2x)=\frac{(2x)!}{x!2^x}.
+\]
+From Stirling's formula, we get $(1-o(1))\sqrt{2}\left(\frac{2x}{e}\right)^x<N(2x)<\sqrt{2}\left(\frac{2x}{e}\right)^x$.
+
+Bollob\'as [4] proved that almost every $d$-regular graph for $d\ge 3$ has large isoperi-
+metric number. The next result shows that such graphs are good expanders in a
+stronger sense. To avoid tedious case analysis we concentrate on the range of $c$ that
+we will need in our proofs and we make no attempt to optimize the bound for $d$.
+
+\begin{theorem}
+Suppose $0<c\le 1/15$ and $d$ is an integer satisfying $d>2(1-\ln c)/c(1-5c)$. Let $H$ be a random $d$-regular multigraph of order $n$ ($dn$ even).
+Then almost surely (as $n\to\infty$) there is an edge between any pair of disjoint vertex
+sets $U,W$ satisfying $|U|=|W|\ge cn$.
+\end{theorem}
+
+\begin{proof}
+Suppose $|U|=|W|=m=\lceil cn\rceil=\eta n$, so $\eta\to c$ as $n\to\infty$. Consider the
+configurations where exactly $k$ edges join vertices of $U$. Suppose that no edge joins
+$U$ to $W$. Then all ends of the remaining $dm-2k$ half-edges emanating from $U$ have
+the other end in $V(H)\setminus(U\cup W)$, and for a chosen subset of $dm-2k$ half-edges
+emanating from $V(H)\setminus(U\cup W)$ we have $(dm-2k)!$ possibilities to pair them with
+the half-edges of $U$. Finally, we can pair the remaining half-edges in any fashion.
+Set $2k/d=\gamma n$ and let $X_{U,W}$ denote the number of edges joining $U$ to $W$. Then the
+probability
+\[
+  P[X_{U,W}=0]=\sum_{0\le k\le dm/2}
+  \frac{\binom{dm}{2k}N(2k)\binom{d(n-2m)}{dm-2k}(dm-2k)!N(d(n-2m)+2k)}{N(dn)}.
+\]
+We can estimate $\binom{dm}{2k}\le \left(\frac{e\eta}{\gamma}\right)^{\gamma dn}$,
+$N(2k)\le \sqrt{2}\left(\frac{\gamma dn}{e}\right)^{\gamma dn/2}$,
+$\binom{d(n-2m)}{dm-2k}(dm-2k)!\le n\bigl(dn(1-5\eta/2+\gamma/2)\bigr)^{(\eta-\gamma)dn}$
+by pairing the terms around the middle, and
+\begin{align*}
+  \frac{N(d(n-2m)+2k)}{N(dn)}
+  &<(1+o(1))\left(\frac{dn(1-2\eta+\gamma)}{e}\right)^{dn(1-2\eta+\gamma)/2}
+    \left(\frac{e}{dn}\right)^{dn/2} \\
+  &= (1+o(1))(1-2\eta+\gamma)^{dn/2}\left(\frac{e}{dn(1-2\eta+\gamma)}\right)^{(\eta-\gamma/2)dn} \\
+  &\le (1+o(1))\left(e^{-(2\eta-\gamma)^2/4}\bigl(dn(1-2\eta+\gamma)\bigr)^{-(\eta-\gamma/2)}\right)^{dn},
+\end{align*}
+where the last term follows from the inequality $1-x\le e^{-x-x^2/2}$ for $0\le x<1$.
+Writing
+\[
+  \Psi(\eta,\gamma)=\left(\frac{e\eta^2}{\gamma(1-2\eta)}\right)^\gamma
+\]
+we get that $\sqrt{2}(\Psi(\eta,\gamma))^{dn/2}>\binom{dm}{2k}N(2k)/((1-2\eta+\gamma)dn)^{\gamma dn/2}$, so
+\begin{align*}
+  P[X_{U,W}=0]
+  &< O(n^2)\max_{0\le \gamma\le \eta}
+     \left[(\Psi(\eta,\gamma))^{dn/2}
+     \left(\frac{1-5\eta/2+\gamma/2}{1-2\eta+\gamma}\right)^{(\eta-\gamma)dn}
+     e^{-dn(2\eta-\gamma)^2/4}\right] \\
+  &< O(n^2)\max_{0\le \gamma\le \eta}
+     \left(\Psi(\eta,\gamma)(1-\eta/2-\gamma/2)^{2(\eta-\gamma)}e^{-(2\eta-\gamma)^2/2}\right)^{dn/2} \\
+  &< O(n^2)\max_{0\le \gamma\le \eta}
+     \left(\Psi(\eta,\gamma)e^{-(\eta^2-\gamma^2)-(2\eta-\gamma)^2/2}\right)^{dn/2}.
+\end{align*}
+The function $\Psi(\eta,\gamma)$ is maximal if $\gamma=\eta^2/(1-2\eta)$, whence $\Psi(\eta,\gamma)\le e^{\eta^2/(1-2\eta)}$.
+Now suppose that $n$ is sufficiently large. If $\gamma\le 7\eta^2/2$ then using $\eta<(1+o(1))/15$
+we get
+\[
+  P[X_{U,W}=0]<e^{((1-2\eta)^{-1}-(3-7\eta-49\eta/120))\eta^2dn/2}<e^{-(1-5\eta)\eta^2dn}.
+\]
+If $\gamma>7\eta^2/2$ then $\Psi(\eta,\gamma)$ has a negative contribution in the exponent and $P[X_{U,W}=
+0]<e^{-(1-5\eta)\eta^2dn}$ holds as well. On the other hand, there are
+\[
+  \frac{\binom{n}{m}\binom{n-m}{m}}{2}=\frac{\binom{n}{2m}\binom{2m}{m}}{2}<\left(\frac{e}{2\eta}\right)^{2\eta n}2^{2\eta n}=e^{(1-\ln\eta)2\eta n}
+\]
+pairs of disjoint sets of cardinalities $m$. So the probability that there is a pair of
+disjoint sets of cardinalities $m$, which are not joined by an edge is at most
+\[
+  \left(e^{2(1-\ln\eta)-d(1-5\eta)\eta}\right)^{\eta n}.
+\]
+Hence, if $d>2(1-\ln c)/c(1-5c)$ then in a random $d$-regular multigraph almost
+surely every pair of disjoint subsets of cardinalities at least $cn$ is joined by an edge.
+\end{proof}
+
+This is only an existence proof, and given a random regular graph it may be diffi-
+cult to decide, whether the graph has this property. Anyway, we can at least justify
+that a regular graph has this property based on the eigenvalues of the adjacency ma-
+trix (see [1, p.~122]). Broder and Shamir [9] (cf. the improvement of Friedman [20])
+proved in a slightly different and more restricted model of random regular graphs,
+that the justification via eigenvalues is possible for almost all $d$-regular graphs if
+$d$ is sufficiently large and even. Moreover, explicit constructions of infinite fam-
+ilies of regular graphs with constant degree are known which are well-expanding
+in the sense of Theorem 3, e.g. the non-bipartite Ramanujan graphs constructed
+by Lubotzky, Phillips and Sarnak [22]. Note that the bounds for $d$ obtained via
+eigenvalue estimates are weaker than those computed directly in Theorem 3.
+
+\section{Lexicographic products as Ramsey graphs}
+
+In the previous section we analyzed properties of well-expanding graphs with re-
+gard to our needs. In order to show that for such a graph $H$ the Ramsey number
+$r(C_{2k+1};H)$ is large, one has to find a graph of large order compared to $H$, which
+does not contain $C_{2k+1}$ and whose complement does not contain $H$. This graph
+will be the lexicographic product of a graph with small independence number and
+odd girth exceeding $2k+1$ with an edgeless graph. Note that $F[\bar{K}_r]$ has the same
+odd girth as $F$, while for $r\ge 2$ it has many short even cycles. Moreover, the
+independence ratio $\alpha(F[\bar{K}_r])/|F[\bar{K}_r]|=\alpha(F)/|F|$.
+
+Certainly, $C_{2k+1}$ is not a subgraph of $F[\bar{K}_r]$. Turning to the complement, we
+will see that $\overline{F[\bar{K}_r]}=\overline{F}[K_r]$ is not a well expanding graph in the required sense,
+since every subgraph of order $n=|F[\bar{K}_r]|/h$ contains two disjoint vertex sets of
+cardinalities $\lceil cn\rceil$ which are not joined by an edge, $c$ being a constant only depending
+on $F$. So any sufficiently well-expanding graph $H$ of order $n$ cannot be a subgraph of
+$\overline{F}[K_r]$. We simulate subgraphs of lexicographic products $\overline{F}[K_r]$ by assigning weights
+to the vertices $v_i$ of $F$, representing the ratio of the vertices in $V_i$ belonging to the
+subgraph.
+
+\begin{lemma}
+Let $F$ be a graph of order $p$ with clique number $\omega$. Assign to every vertex
+$v$ of $F$ a weight $w_v$ with $0\le w_v\le 1$. If $t=\sum_{v\in V}w_v>\omega$, then $F$ contains two
+non-adjacent vertices $x_1,x_2$ with $w_{x_i}\ge (t-\omega)/(p-\omega)$.
+\end{lemma}
+
+\begin{proof}
+Let $V'$ be the set of vertices $v$ with $w_v\ge (t-\omega)/(p-\omega)$. Since $\omega+(p-
+\omega)(t-\omega)/(p-\omega)=t$ we obtain $|V'|>\omega$. So $V'$ contains two non-adjacent vertices.
+\end{proof}
+
+Before treating the general case, we first prove that $f(n,3)/n<84$ by showing
+that $r(K_3;H)>2|H|$ for almost every $d$-regular graph with $d\ge 168$. Let $r=\lceil 2n/5\rceil$
+and take $F=C_5$. Setting $t=|H|/r=5(1-o(1))/2$ and assigning weights of total
+weight $t$ to the vertices of $C_5$, we get from Lemma 1 that $C_5$ contains two non-
+adjacent vertices of weight $w_{x_i}\ge (1-o(1))/6$. So every subgraph $F'$ of $\overline{C_5[\bar{K}_r]}=$
+$C_5[K_r]$ of order $|F'|=tr=n$ contains two disjoint subsets, each of cardinality
+$|F'|w_{x_i}/t=(1-o(1))n/15$, which are not joined by an edge. Employing Theorem 3
+with $c=(1-o(1))/15$ we get that, as $n\to\infty$, for almost every $d$-regular graph $H$
+with $d\ge 168$ and order $n$ every pair of disjoint subsets of cardinalities $(1-o(1))n/15$
+is joined by an edge. So $H$ cannot be a subgraph of any subgraph of $C_5[K_r]$ with the
+same order as $H$, and hence not be a subgraph of $C_5[K_r]$. So the Ramsey number
+$r(K_3;H)>2n$ and hence $f(n,3)/n<84$.
+
+It should be mentioned that $C_5[K_r]$ is, in fact, Ramsey graph for the Ramsey
+number $r(K_3;H)$ of certain undense graphs $H$ which are well-expanding. E.g. let
+$H$ be the (unique) $r(K_3,K_5)$-Ramsey graph itself which is 4-regular of order 13 and
+well expanding. Using the program \texttt{mtf} due to Brandt, Brinkmann and Harmuth [6]
+we can compute that $r(K_3;H)=26$, and $C_5[K_5]$ is a Ramsey graph. This shows,
+by the way, that $f(13,3)/13<2$.
+
+The same approach can be used to show that $r(C_{2k+1};H)>h(C_{2k+1},d)|H|$,
+where $h(C_{2k+1},d)\to\infty$ as $d\to\infty$. We will make use of the existence of families
+of graphs $F_i$ with the following properties: $\alpha(F_i)/|F_i|$ tends to 0 and $F_i[\bar{K}_r]$ does
+not contain $C_{2k+1}$ for any $r\ge 1$. We can simply choose $F_i$ to be a family of graphs
+with girth exceeding $2k+1$, since the odd girth of $F_i[\bar{K}_r]$ remains unchanged. The
+existence of families with arbitrarily large girth and arbitrarily small independence
+ratio was proven by Erd\H{o}s [19] by probabilistic means, in order to show that there
+are graphs with arbitrarily large girth and chromatic number.
+
+\begin{proof}[Proof of Theorem 2]
+Let $\beta(k,p)$ be the minimum independence number taken over all graphs of order
+$p$ with odd girth more than $2k+1$. By Kim's result [21, Theorem 1.1] we have
+$\beta(3,p)=O(\sqrt{p\log p})$ (note that the inequality in [21, Theorem 1.1] is misprinted)
+and by Erd\H{o}s' result [19] we have $\beta(k,p)=O(p^{1-1/(4k+2)})$.
+
+Let $d$ be an integer which is sufficiently large with respect to $k$ and set $c=
+3\ln d/d$. By Theorem 3 in a $d'$-regular graph $H$ of order $n$ with $d'\ge d$ almost surely
+every pair of disjoint vertex sets $U,W$ of cardinality $|U|,|W|\ge cn$ are joined by an
+edge since $d'\ge d>2(1-\ln c)/(1-5c)c$.
+
+For $p=\lceil 1/2c\rceil$ there exists a graph $F$ of odd girth larger than $2k+1$ and order
+$p$ which has independence number $\beta(k,p)$. Now set $r=\lceil n/2\beta(k,p)\rceil$ and choose
+$0<\varepsilon<\beta(k,p)/2p$. If $n$ is sufficiently large then $n/r\ge 2(1-\varepsilon)\beta(k,p)$. Assume
+that $H$ is a subgraph of $\overline{F[\bar{K}_r]}$, i.e. there is an injection $\sigma:V(H)\to V(\overline{F[\bar{K}_r]})$ such
+that $xy\in E(H)$ implies $\sigma(x)\sigma(y)\in E(\overline{F[\bar{K}_r]})$. Let $k_i$ be the number of vertices
+from $H$ with $\sigma(x)=(v_i,\cdot)$. Assign to every vertex $v_i$ of $\overline{F}$ weight $w_{v_i}=k_i/r$. So
+the total weight is $n/r\ge 2(1-\varepsilon)\beta(k,p)$. By Lemma 1 the graph $\overline{F}$ contains two
+non-adjacent vertices $x_1,x_2$ of weight
+\[
+  w_{x_i}\ge \frac{2(1-\varepsilon)\beta(k,p)-\omega}{p-\omega}\ge \frac{(1-2\varepsilon)\beta(k,p)}{p-\beta(k,p)}>
+  \frac{\beta(k,p)}{p}.
+\]
+So $H$ contains two vertex sets $U,W$ with $|U|,|W|\ge \beta(k,p)r/p\ge n/2p\ge cn$ which
+are not joined by an edge.
+
+Hence a random $d'$-regular graph $H$ is almost surely not a subgraph of $\overline{F[\bar{K}_r]}$,
+so, in particular $r(C_{2k+1};H)>h(C_{2k+1},d)|H|$, where $h(C_{2k+1},d)=pr/|H|\ge
+p/2\beta(k,p)$. Since $p=\Theta(d/\log d)$ we get $h(C_3,d)=\Omega(\sqrt{d}/\log d)$ and $h(C_{2k+1},d)=
+\Omega((d/\log d)^{1/(4k+2)})$ for $k\ge 2$.
+\end{proof}
+
+The property that every pair of small disjoint subsets is joined by an edge is
+a strong expansion property, which is not satisfied e.g. by well-expanding bipartite
+graphs. It would be interesting to know whether weaker expansion properties can
+already force a sequence of undense graphs $H$ to have large Ramsey number $r(G;H)$,
+perhaps restricted to graphs $G$ in a subclass of nonbipartite graphs.
+
+\medskip
+\noindent\textbf{Acknowledgement}
+
+I thank Alan Frieze and Jean-Pierre Tillich for their helpful remarks, and Hans
+Mielke for pointing out a mistake in an earlier version.
+
+\begin{thebibliography}{99}
+
+\bibitem{1}
+N. Alon and J. H. Spencer, \emph{The probabilistic method}, Wiley, New York,
+1992.
+
+\bibitem{2}
+B. Bollob\'as, A probabilistic proof of an asymptotic formula for the number
+of labelled regular graphs, \emph{Europ. J. Comb.} \textbf{1} (1980), 34--38.
+
+\bibitem{3}
+B. Bollob\'as, \emph{Random Graphs}, Academic Press, London, 1985.
+
+\bibitem{4}
+B. Bollob\'as, The isoperimetric number of random regular graphs, \emph{Europ. J.}
+\emph{Comb.} \textbf{9} (1988), 241--244.
+
+\bibitem{5}
+J. A. Bondy and P. Erd\H{o}s, Ramsey numbers for cycles in graphs, \emph{J. Comb.}
+\emph{Theory Ser. B} \textbf{14} (1974), 46--54.
+
+\bibitem{6}
+S. Brandt, G. Brinkmann, T. Harmuth, The generation of maximal
+triangle-free graphs, in preparation.
+
+\bibitem{7}
+S. Brandt, G. Brinkmann, T. Harmuth, All Ramsey numbers $r(K_3,G)$
+for connected graphs of order 9, in preparation.
+
+\bibitem{8}
+G. Brinkmann, All Ramsey numbers $r(K_3,G)$ for connected graphs of order
+7 and 8, submitted.
+
+\bibitem{9}
+A. Broder and E. Shamir, On the second eigenvalue of random regular
+graphs, In: 28th Symp. on Foundations of Comp. Sci., IEEE (1987), pp.~286--
+294.
+
+\bibitem{10}
+S. A. Burr, Ramsey numbers involving graphs with long suspended paths, \emph{J.}
+\emph{London Math. Soc.} (2) \textbf{24} (1981), 11--20.
+
+\bibitem{11}
+S. A. Burr, What can we hope to accomplish in generalized Ramsey theory?,
+\emph{Discrete Math.} \textbf{67} (1987), 215--225.
+
+\bibitem{12}
+S. A. Burr and P. Erd\H{o}s, Generalizations of a Ramsey-theoretic result of
+Chv\'atal, \emph{J. Graph Theory} \textbf{7} (1983), 39--51.
+
+\bibitem{13}
+S. A. Burr, P. Erd\H{o}s, R. J. Faudree, C. C. Rousseau and R. H.
+Schelp, An extremal problem in generalized Ramsey theory, \emph{Ars Comb.} \textbf{10}
+(1980), 193--203.
+
+\bibitem{14}
+S. A. Burr, P. Erd\H{o}s, R. J. Faudree, C. C. Rousseau and R. H.
+Schelp, The Ramsey number for the pair complete bipartite graph---graph of
+limited degree, in: \emph{Graph Theory with Applications to Algorithms and Com-}
+\emph{puter Science} (Alavi et. al., eds.) Wiley, 1985, 163--174.
+
+\bibitem{15}
+S. A. Burr and R. J. Faudree, On graphs $G$ for which all large trees are
+$G$-good, \emph{Graphs \& Comb.} \textbf{9} (1993), 305--313.
+
+\bibitem{16}
+V. Chv\'atal, Tree---complete graph Ramsey numbers, \emph{J. Graph Theory} \textbf{1}
+(1977), 93.
+
+\bibitem{17}
+V. Chv\'atal and F. Harary, Generalized Ramsey theory for graphs III,
+Small off-diagonal numbers, \emph{Pacific J. Math.} \textbf{41} (1972), 335--345.
+
+\bibitem{18}
+V. Chv\'atal, V. R\"odl, E. Szemer\'edi and W. T. Trotter, The Ramsey
+number of graphs with bounded degree, \emph{J. Comb. Theory Ser. B} \textbf{34} (1983),
+239--243.
+
+\bibitem{19}
+P. Erd\H{o}s, Graph theory and probability, \emph{Canad. J. Math.} \textbf{11} (1959), 34--38.
+
+\bibitem{20}
+J. Friedman, On the second eigenvalue and random walks in random $d$-regular
+graphs, \emph{Combinatorica} \textbf{11} (1991), 331--362.
+
+\bibitem{21}
+J. H. Kim, The Ramsey number $R(3,t)$ has order of magnitude $t^2/\log t$, \emph{Ran-}
+\emph{dom Structures \& Algorithms} \textbf{7} (1995), 173--207.
+
+\bibitem{22}
+A. Lubotzky, R. Phillips and P. Sarnak, Ramanujan graphs, \emph{Combina-}
+\emph{torica} \textbf{8} (1988), 261--277.
+
+\bibitem{23}
+R. W. Robinson and N. C. Wormald, Almost all regular graphs are Hamil-
+tonian, \emph{Random Structures and Algorithms} \textbf{5} (1994), 363--374.
+
+\bibitem{24}
+D. B. West, \emph{Introduction to graph theory}, Prentice Hall, 1996.
+
+\end{thebibliography}
+
+\end{document}
