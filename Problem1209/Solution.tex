@@ -1,0 +1,327 @@
+\documentclass[11pt]{article}
+
+\newif\ifuseenumitem
+
+\IfFileExists{geometry.sty}{\usepackage[margin=1in]{geometry}}{}
+\usepackage[T1]{fontenc}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\usepackage{amsmath,amsthm,amssymb}
+\IfFileExists{mathtools.sty}{\usepackage{mathtools}}{}
+\IfFileExists{enumitem.sty}{%
+  \useenumitemtrue
+  \usepackage{enumitem}
+}{%
+  \useenumitemfalse
+}
+\IfFileExists{hyperref.sty}{%
+  \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+}{%
+  \providecommand{\texorpdfstring}[2]{#1}
+}
+
+\newenvironment{arabicparts}
+{\ifuseenumitem
+  \begin{enumerate}[label=(\arabic*)]\else
+    \begin{enumerate}\renewcommand{\labelenumi}{(\arabic{enumi})}\fi}
+        {
+      \end{enumerate}}
+
+    \newenvironment{romanparts}
+    {\ifuseenumitem
+      \begin{enumerate}[label=\textup{(\roman*)}]\else
+        \begin{enumerate}\renewcommand{\labelenumi}{\textup{(\roman{enumi})}}\fi}
+            {
+          \end{enumerate}}
+
+        \newtheorem{theorem}{Theorem}[section]
+        \newtheorem{proposition}[theorem]{Proposition}
+        \newtheorem{lemma}[theorem]{Lemma}
+        \newtheorem{corollary}[theorem]{Corollary}
+        \theoremstyle{remark}
+        \newtheorem{remark}[theorem]{Remark}
+
+        \title{\texorpdfstring{Erd\H{o}s Problem \#1209}{Erdos Problem \#1209}}
+        \author{Enrique Barschkis}
+        \date{\today}
+
+        \begin{document}
+        \maketitle
+
+        \begin{abstract}
+          We give complete solutions to the following three problems.
+
+          \begin{arabicparts}
+          \item Let $A=\{a_1<a_2<\cdots\}$ be a sequence of integers tending to $\infty$ sufficiently fast. If there exists an integer $n$ such that every $n+a_k$ is prime, must there be infinitely many such $n$?
+          \item Under the same hypotheses, what happens if ``prime'' is replaced by ``squarefree''?
+          \item Does there exist an integer $n$ such that $n+2^{2^k}$ is prime for every $k\ge 0$?
+          \end{arabicparts}
+
+          For \textup{(1)} and \textup{(2)} we prove a stronger statement: for every prescribed growth rate one can construct a sequence for which there is exactly one good shift. For \textup{(3)} we prove that no such integer $n$ exists.
+        \end{abstract}
+
+        \section{Introduction and notation}
+
+        Throughout, a \emph{shift} means an integer $n\in\mathbb Z$. A nonzero integer $m$ is \emph{squarefree} if no square $d^2>1$ divides $m$; equivalently, $|m|$ is not divisible by the square of any prime. For a nonzero integer $m$, we write $v_2(m)$ for the largest integer $r\ge 0$ such that $2^r\mid m$.
+
+        The phrase ``tending to $\infty$ sufficiently fast'' is made precise by the following standard strengthening: given any function $g\colon \mathbb N\to\mathbb N$ with $g(k)\to\infty$, we construct a sequence $A=\{a_k\}$ satisfying $a_k>g(k)$ for every $k$. This is more than enough for the original formulation.
+
+        \section{A diagonal construction for Questions \textup{(1)} and \textup{(2)}}
+
+        The key point is that the prime and squarefree questions can be killed simultaneously.
+
+        \begin{theorem}\label{thm:main-diagonal}
+          Let $g\colon \mathbb N\to\mathbb N$ be any function with $g(k)\to\infty$. Then there exists a strictly increasing sequence of primes
+          \[
+            B=\{b_1<b_2<\cdots\}
+          \]
+          such that:
+          \begin{romanparts}
+          \item $b_k>g(k)$ for every $k$;
+          \item for an integer $n$, all of the numbers $n+b_k$ are prime if and only if $n=0$;
+          \item for an integer $n$, all of the numbers $n+b_k$ are squarefree if and only if $n=0$.
+          \end{romanparts}
+        \end{theorem}
+
+        \begin{proof}
+          Enumerate the nonzero integers as
+          \[
+            m_1,m_2,m_3,\dots
+          \]
+          (for example $1,-1,2,-2,3,-3,\dots$). For each $j\ge 1$, choose a prime $q_j$ such that $q_j\nmid m_j$; for instance, any prime $q_j>|m_j|$ will do.
+
+          We construct $b_j$ inductively. Suppose $b_1,\dots,b_{j-1}$ have already been chosen. Since $q_j\nmid m_j$, one has
+          \[
+            \gcd(-m_j,q_j^2)=1.
+          \]
+          By Dirichlet's theorem on primes in arithmetic progressions, the residue class
+          \[
+            x\equiv -m_j \pmod{q_j^2}
+          \]
+          contains infinitely many primes. Choose one such prime $b_j$ so large that
+          \[
+            b_j>\max\{b_{j-1},\,g(j),\,q_j^2+|m_j|\}.
+          \]
+          (For $j=1$ the condition involving $b_{j-1}$ is omitted.) This defines a strictly increasing sequence of primes with $b_j>g(j)$ for every $j$.
+
+          We now verify properties \textup{(ii)} and \textup{(iii)}.
+
+          First, if $n=0$, then $n+b_k=b_k$ is prime for every $k$ by construction. Since every prime is squarefree, $n=0$ also satisfies the squarefree condition.
+
+          Now let $n\ne 0$. Then $n=m_j$ for some index $j$. By construction,
+          \[
+            b_j+n=b_j+m_j\equiv 0 \pmod{q_j^2}.
+          \]
+          Moreover,
+          \[
+            b_j+n\ge b_j-|m_j|>q_j^2,
+          \]
+          so $b_j+n$ is a positive multiple of $q_j^2$ strictly larger than $q_j^2$. Therefore $b_j+n$ is composite, hence not prime. This proves that no nonzero shift can satisfy property \textup{(ii)}.
+
+          The same congruence also shows that
+          \[
+            q_j^2\mid (b_j+n),
+          \]
+          so $b_j+n$ is not squarefree. Hence no nonzero shift can satisfy property \textup{(iii)}.
+
+          Thus $n=0$ is the unique shift for which all $n+b_k$ are prime, and also the unique shift for which all $n+b_k$ are squarefree.
+        \end{proof}
+
+        The preceding theorem is stronger than what is asked in Problems \textup{(1)} and \textup{(2)}, because it produces exactly one good shift rather than merely finitely many good shifts.
+
+        \begin{corollary}\label{cor:12-negative}
+          The answers to Problems \textup{(1)} and \textup{(2)} are negative. More precisely, given any function $h\colon \mathbb N\to\mathbb N$ with $h(k)\to\infty$, there exists a strictly increasing sequence of integers
+          \[
+            A=\{a_1<a_2<\cdots\}
+          \]
+          with $a_k>h(k)$ for every $k$ such that there is exactly one shift $n$ for which all $n+a_k$ are prime, and exactly one shift $n$ for which all $n+a_k$ are squarefree.
+        \end{corollary}
+
+        \begin{proof}
+          Apply Theorem~\ref{thm:main-diagonal} with a function $g$ satisfying $g(k)\ge h(k)+N$ for some fixed positive integer $N$. Let $B=\{b_k\}$ be the resulting prime sequence, and define
+          \[
+            a_k:=b_k-N.
+          \]
+          Then $a_k>h(k)$ for every $k$, and the sequence $A=\{a_k\}$ is strictly increasing and tends to $\infty$.
+
+          For any integer $n$ we have
+          \[
+            n+a_k=n+(b_k-N)=(n-N)+b_k.
+          \]
+          Hence the shifts for $A$ are exactly the shifts for $B$, translated by $N$. Since $0$ is the unique good shift for $B$, the unique good shift for $A$ is $n=N$. In particular there are not infinitely many such shifts.
+        \end{proof}
+
+        \begin{remark}
+          If one interprets Problems \textup{(1)} and \textup{(2)} as allowing all integer shifts, then Theorem~\ref{thm:main-diagonal} already answers them directly. Corollary~\ref{cor:12-negative} is included only to cover the common alternative convention that shifts must be positive.
+        \end{remark}
+
+        \section[The doubly exponential sequence n plus 2 raised to 2 to the k and Problem (3)]{The doubly exponential sequence $n+2^{2^k}$ and Problem (3)}
+
+        We now turn to the special sequence
+        \[
+          U_k(n):=n+2^{2^k}\qquad (k\ge 0).
+        \]
+        The goal is to prove that no integer $n$ makes every term $U_k(n)$ prime.
+
+        \begin{theorem}\label{thm:always-prime-no}
+          For every integer $n$, the sequence $\{U_k(n)\}_{k\ge 0}$ is \emph{not} identically prime. Equivalently, there is no integer $n$ such that
+          \[
+            n+2^{2^k}
+          \]
+          is prime for every $k\ge 0$.
+        \end{theorem}
+
+        The proof splits into three cases.
+
+        \subsection*{Case 1: $n$ is even}
+
+        If $n$ is even, then $U_k(n)$ is even for every $k$. Since $2^{2^k}\to\infty$, for all sufficiently large $k$ one has $U_k(n)>2$, so $U_k(n)$ is composite. Thus an even $n$ can never work.
+
+        \subsection*{Case 2: $n=1$}
+
+        In this case,
+        \[
+          U_k(1)=2^{2^k}+1,
+        \]
+        the $k$th Fermat number. It is enough to exhibit one composite term.
+
+        \begin{lemma}\label{lem:641}
+          The number $2^{32}+1$ is divisible by $641$.
+        \end{lemma}
+
+        \begin{proof}
+          We use the classical identities
+          \[
+            641=5^4+2^4=5\cdot 2^7+1.
+          \]
+          The second identity implies
+          \[
+            5\cdot 2^7\equiv -1 \pmod{641}.
+          \]
+          Raising to the fourth power gives
+          \[
+            5^4\,2^{28}\equiv 1 \pmod{641}.
+          \]
+          The first identity implies $5^4\equiv -2^4\pmod{641}$, so substituting into the previous congruence yields
+          \[
+            -2^4\,2^{28}\equiv 1 \pmod{641},
+          \]
+          that is,
+          \[
+            -2^{32}\equiv 1 \pmod{641}.
+          \]
+          Therefore
+          \[
+            2^{32}+1\equiv 0 \pmod{641},
+          \]
+          so $641\mid (2^{32}+1)$.
+        \end{proof}
+
+        By Lemma~\ref{lem:641}, the term $U_5(1)=2^{32}+1$ is composite. Hence $n=1$ does not work.
+
+        \subsection*{Case 3: $n$ is odd and $n\ne 1$}
+
+        This is the only genuinely nontrivial case. The argument is based on a recurrence of divisors.
+
+        \begin{lemma}\label{lem:recurrence}
+          Let $n$ be an odd integer with $n\ne 1$, and put
+          \[
+            r:=v_2(n-1).
+          \]
+          Suppose that for some integer $t\ge r$ the number
+          \[
+            p:=U_t(n)=n+2^{2^t}
+          \]
+          is prime. Then there exists an integer $L\ge 1$ such that
+          \[
+            p\mid U_{t+L}(n).
+          \]
+          In fact,
+          \[
+            p\mid U_{t+mL}(n)\qquad\text{for every }m\ge 1.
+          \]
+        \end{lemma}
+
+        \begin{proof}
+          Since $n$ is odd, the prime $p=n+2^{2^t}$ is odd. Let
+          \[
+            d:=\operatorname{ord}_p(2),
+          \]
+          the multiplicative order of $2$ modulo $p$. By Fermat's little theorem, $2^{p-1}\equiv 1\pmod p$, so $d\mid (p-1)$.
+
+          Now
+          \[
+            p-1=(n-1)+2^{2^t}.
+          \]
+          Because $r=v_2(n-1)$ and $t\ge r$, we have
+          \[
+            v_2\bigl(2^{2^t}\bigr)=2^t>r.
+          \]
+          Since the two summands $(n-1)$ and $2^{2^t}$ have different $2$-adic valuations, the smaller valuation survives in the sum:
+          \[
+            v_2(p-1)=v_2\bigl((n-1)+2^{2^t}\bigr)=v_2(n-1)=r.
+          \]
+          As $d\mid (p-1)$, it follows that
+          \[
+            v_2(d)\le r\le t.
+          \]
+
+          Consider the order of $2^{2^t}$ modulo $p$. A standard order formula gives
+          \[
+            \operatorname{ord}_p\bigl(2^{2^t}\bigr)=\frac{d}{\gcd(d,2^t)}.
+          \]
+          Indeed, if an element has order $d$, then its $m$th power has order $d/\gcd(d,m)$, because one must solve the divisibility condition $d\mid ms$. Since $v_2(d)\le t$, the power $2^t$ contains the entire $2$-part of $d$. Hence
+          \[
+            M:=\operatorname{ord}_p\bigl(2^{2^t}\bigr)=\frac{d}{\gcd(d,2^t)}
+          \]
+          is an odd positive integer.
+
+          Because $M$ is odd, the residue class of $2$ is invertible modulo $M$. Therefore some positive integer $L$ satisfies
+          \[
+            2^L\equiv 1 \pmod M.
+          \]
+          (For example, when $M>1$ one may take $L=\operatorname{ord}_M(2)$, and when $M=1$ any $L\ge 1$ works.) Since $2^{2^t}$ has order $M$ modulo $p$, exponents that are congruent modulo $M$ give the same power. Thus
+          \[
+            \bigl(2^{2^t}\bigr)^{2^L}\equiv \bigl(2^{2^t}\bigr)^1 \pmod p.
+          \]
+          Equivalently,
+          \[
+            2^{2^{t+L}}\equiv 2^{2^t} \pmod p.
+          \]
+          Adding $n$ to both sides gives
+          \[
+            U_{t+L}(n)=n+2^{2^{t+L}}\equiv n+2^{2^t}=p\equiv 0 \pmod p.
+          \]
+          So $p\mid U_{t+L}(n)$. Exactly the same argument works for every multiple $mL$, because $2^{mL}\equiv 1\pmod M$ for all $m\ge 1$. Hence
+          \[
+            p\mid U_{t+mL}(n)\qquad(m\ge 1).
+          \]
+        \end{proof}
+
+        We can now finish the odd case. Suppose, for contradiction, that $U_k(n)$ is prime for every $k\ge 0$. Since $r=v_2(n-1)$ is finite and every term is prime by assumption, the specific term
+        \[
+          p:=U_r(n)=n+2^{2^r}
+        \]
+        is prime. Applying Lemma~\ref{lem:recurrence} with $t=r$, we obtain an integer $L\ge 1$ such that
+        \[
+          p\mid U_{r+L}(n).
+        \]
+        But $r+L>r$, so
+        \[
+          U_{r+L}(n)=n+2^{2^{r+L}}>n+2^{2^r}=p.
+        \]
+        Therefore $U_{r+L}(n)$ is a multiple of the smaller positive integer $p$, and is therefore composite. This contradicts the assumption that every $U_k(n)$ is prime.
+
+        The three cases together prove Theorem~\ref{thm:always-prime-no}.
+
+        \section{Conclusion}
+
+        The three problems listed in the introduction have the following answers.
+
+        \begin{arabicparts}
+        \item No. In fact, for any prescribed growth rate there exists a sequence $A=\{a_k\}$ for which there is exactly one shift $n$ such that every $n+a_k$ is prime.
+        \item No. The same construction shows that, for any prescribed growth rate, one can arrange that there is exactly one shift $n$ such that every $n+a_k$ is squarefree.
+        \item No. There is no integer $n$ for which every number $n+2^{2^k}$ is prime.
+        \end{arabicparts}
+
+        \end{document}
